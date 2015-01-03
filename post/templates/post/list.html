@@ -1,0 +1,33 @@
+<!-- START post/list.html -->
+{% extends 'post/base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+    Posts
+{% endblock %}
+
+{% block content %}
+
+<p>
+    <a href="{% url 'add_post' %}">
+        Add new post
+    </a>
+</p>
+<ul>
+{% for post in object_list %}
+<li>
+    #{{ post.id }}
+    <a href="{% url 'edit_post' post.id %}">{{ post.title }}</a> {{ post.modified|date:"D d M Y"|capfirst }}
+    <p>Content: {{ post.content }}</p>
+    <p>
+        <a href="{% url 'add_comment' post.id %}">
+            Comments ({{ post.number_of_comments }})
+        </a>
+    </p>
+
+</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+<!-- END post/list.html -->
